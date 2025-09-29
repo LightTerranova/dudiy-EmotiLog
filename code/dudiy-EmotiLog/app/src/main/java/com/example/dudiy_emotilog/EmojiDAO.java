@@ -11,7 +11,7 @@ public class EmojiDAO {
         @Insert
         void insert(Emoji emoji);
 
-        @Query("SELECT *")
+        @Query("SELECT * FROM Emoji WHERE date(timestamp/1000,'unixepoch') = date(:day/1000,'unixepoch')")
         List<Emoji> getLogs(long day);
     }
 }
