@@ -12,6 +12,6 @@ public interface EmojiDao {
     @Insert
     void insert(Emoji log);
 
-    @Query("SELECT * FROM Emoji")
-    List<Emoji> getAllLogs();
+    @Query("SELECT * FROM Emoji WHERE date(timestamp/1000, 'unixepoch') = :date")
+    List<Emoji> getLogsByDate(String date);
 }

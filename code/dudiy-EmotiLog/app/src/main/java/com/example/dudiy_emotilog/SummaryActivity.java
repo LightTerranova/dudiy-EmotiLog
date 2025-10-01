@@ -1,61 +1,68 @@
 package com.example.dudiy_emotilog;
 
-import android.content.Intent;
+import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class SummaryActivity extends AppCompatActivity {
-    // Creates summary and shows it on the summary screen
+    private AppDatabase db;
+    private TextView tvSummary;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_summary);
 
-        TextView summaryText = findViewById(R.id.summaryText);
+        db = Room.databaseBuilder(getApplicationContext(),
+                        AppDatabase.class, "mood-db").allowMainThreadQueries().build();
 
-        // create db
-        AppDatabase db = Room.databaseBuilder(getApplicationContext(),
-                AppDatabase.class, "mood-db").allowMainThreadQueries().build();
+        tvSummary = findViewById(R.id.summaryText);
+        Button pickDateBtn = findViewById(R.id.btnPickDate);
 
-        // making a date format to use for comparing later
-        // getting today's date
-        List<Emoji> logs = db.emojiDao().getAllLogs();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-        String today = sdf.format(new Date());
+        pickDateBtn.setOnClickListener(v -> showDatePicker());
+    }
 
-        // Counting the number of times an emotion happened
-        // converts emoji date to new format, stores the num of todays emotions in a hashmap
-        Map<String, Integer> freq = new HashMap<>();
+    private void showDatePicker() {
+        final Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+        DatePickerDialog dialog = new DatePickerDialog(
+                this,
+                (view, selectedYear, selectedMonth, selectedDay) -> {
+                    String date = String.format(Locale.US,
+                            "%04d-%02d-%02d", selectedYear, selectedMonth + 1, selectedDay);
+                    showSummaryForDate(date);
+                },
+                year, month, day);
+        dialog.show();
+    }
+
+    private void showSummaryForDate(String date) {
+        List<Emoji> logs = db.emojiDao().getLogsByDate(date);
+
+        if (logs.isEmpty()) {
+            tvSummary.setText("No logs for " + date);
+            return;
+        }
+
+        Map<String, Integer> counts = new HashMap<>();
         for (Emoji log : logs) {
-            String logDate = sdf.format(new Date(log.timestamp));
-            if (logDate.equals(today)) {
-                freq.put(log.mood, freq.getOrDefault(log.mood, 0) + 1);
-            }
+            counts.put(log.mood, counts.getOrDefault(log.mood, 0) + 1);
         }
 
-        // Showing the hashmap by building a string
-        if (freq.isEmpty()) {
-            summaryText.setText(R.string.no_logs_to_show);
-        } else {
-            StringBuilder sb = new StringBuilder();
-            for (String mood : freq.keySet()) {
-                sb.append(mood).append(": ").append(freq.get(mood)).append("\n");
-            }
-            summaryText.setText(sb.toString());
+        StringBuilder sb = new StringBuilder();
+        sb.append("Summary for ").append(date).append(":\n\n");
+        for (Map.Entry<String, Integer> entry : counts.entrySet()) {
+            sb.append(entry.getKey()).append(": ")
+                    .append(entry.getValue()).append(" times\n");
         }
 
-        // back button to go back to the log your mood
-        Button backToLogButton = findViewById(R.id.btnBackToLog);
-        backToLogButton.setOnClickListener(v -> {
-            Intent intent = new Intent(SummaryActivity.this, MainActivity.class);
-            startActivity(intent);
-        });
+        tvSummary.setText(sb.toString());
     }
 }
-
