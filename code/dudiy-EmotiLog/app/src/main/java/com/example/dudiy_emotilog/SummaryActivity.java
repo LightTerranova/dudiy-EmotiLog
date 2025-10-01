@@ -9,7 +9,7 @@ import androidx.room.Room;
 import java.util.*;
 
 public class SummaryActivity extends AppCompatActivity {
-    private AppDatabase db;
+    private AppDatabase db;                             // Re-declaring things is fine
     private TextView tvSummary;
 
     @Override
