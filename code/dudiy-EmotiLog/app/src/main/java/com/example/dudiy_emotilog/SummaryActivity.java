@@ -21,11 +21,10 @@ public class SummaryActivity extends AppCompatActivity {
                 AppDatabase.class, "mood-db").allowMainThreadQueries().build();
 
         List<Emoji> logs = db.emojiDao().getAllLogs();
-
-        // Format timestamps to yyyy-MM-dd
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
         String today = sdf.format(new Date());
 
+        // Counting the number of times an emotion happened.
         Map<String, Integer> freq = new HashMap<>();
         for (Emoji log : logs) {
             String logDate = sdf.format(new Date(log.timestamp));
@@ -35,7 +34,7 @@ public class SummaryActivity extends AppCompatActivity {
         }
 
         if (freq.isEmpty()) {
-            summaryText.setText("No logs for today yet.");
+            summaryText.setText(R.string.no_logs_to_show);
         } else {
             StringBuilder sb = new StringBuilder();
             for (String mood : freq.keySet()) {

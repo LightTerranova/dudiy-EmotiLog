@@ -1,33 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:gravity="center"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    tools:context=".MainActivity">
+    android:padding="20dp">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fitsSystemWindows="true">
+    <TextView
+        android:text="@string/log_your_mood"
+        android:textSize="24sp"
+        android:layout_marginBottom="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
-        <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize" />
+    <Button
+        android:id="@+id/btnHappy"
+        android:text="@string/happy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 
-    </com.google.android.material.appbar.AppBarLayout>
+    <Button
+        android:id="@+id/btnSad"
+        android:text="@string/sad"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 
-    <include layout="@layout/content_main" />
+    <Button
+        android:id="@+id/btnAngry"
+        android:text="@string/angry"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab"
+    <Button
+        android:id="@+id/btnExcited"
+        android:text="@string/excited"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <Button
+        android:id="@+id/btnGrateful"
+        android:text="@string/contemplative"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <Button
+        android:id="@+id/btnCalm"
+        android:text="@string/calm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <Button
+        android:id="@+id/btnSummary"
+        android:text="@string/view_daily_summary"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_marginEnd="@dimen/fab_margin"
-        android:layout_marginBottom="16dp"
-        app:srcCompat="@android:drawable/ic_dialog_email" />
-
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+        android:layout_marginTop="30dp"/>
+</LinearLayout>

@@ -43,4 +43,15 @@
         libero vel nunc consequat, quis tincidunt nisl eleifend. Cras bibendum enim a justo luctus
         vestibulum. Fusce dictum libero quis erat maximus, vitae volutpat diam dignissim.
     </string>
+    <string name="mood_summary">Today\'s Mood Summary</string>
+    <string name="go_back">Back to Logging</string>
+    <string name="log_your_mood">Log Your Mood</string>
+    <string name="happy">Happy</string>
+    <string name="sad">Sad</string>
+    <string name="angry">Angry</string>
+    <string name="excited">Excited</string>
+    <string name="contemplative">Contemplative</string>
+    <string name="calm">Calm</string>
+    <string name="view_daily_summary">View Daily Summary</string>
+    <string name="no_logs_to_show">No logs to show.</string>
 </resources>
