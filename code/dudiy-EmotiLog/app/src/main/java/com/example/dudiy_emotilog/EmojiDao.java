@@ -8,7 +8,7 @@ import java.util.List;
 @Dao
 public interface EmojiDao {
     // Creating a data access object to provide an interface to the database
-    // Only allows inserting emoji objects and retrieving all objects
+    // Only allows inserting emoji objects and retrieving by date objects
     @Insert
     void insert(Emoji log);
 
