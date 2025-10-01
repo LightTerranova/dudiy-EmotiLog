@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
         setupButton(R.id.btnSad, "Sad");
         setupButton(R.id.btnAngry, "Angry");
         setupButton(R.id.btnExcited, "Excited");
-        setupButton(R.id.btnGrateful, "Contemplative");
+        setupButton(R.id.btnTired, "Tired");
         setupButton(R.id.btnCalm, "Calm");
 
         findViewById(R.id.btnSummary).setOnClickListener(v -> {
