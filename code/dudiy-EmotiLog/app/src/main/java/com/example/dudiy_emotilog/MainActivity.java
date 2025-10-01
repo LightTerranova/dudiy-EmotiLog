@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
 
 public class MainActivity extends AppCompatActivity {
-
+    // main activity to show mood buttons
     private AppDatabase db;
 
     @Override
@@ -15,9 +15,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // creating a database
         db = Room.databaseBuilder(getApplicationContext(),
                 AppDatabase.class, "mood-db").allowMainThreadQueries().build();
 
+        // setting up buttons
         setupButton(R.id.btnHappy, "Happy");
         setupButton(R.id.btnSad, "Sad");
         setupButton(R.id.btnAngry, "Angry");
@@ -30,7 +32,8 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    // Back button
+    // makes emoji object when button pressed
+    // uses dao to put into db
     private void setupButton(int id, String mood) {
         Button btn = findViewById(id);
         btn.setOnClickListener(v -> {

@@ -4,6 +4,7 @@ import androidx.room.PrimaryKey;
 
 @Entity
 public class Emoji {
+    // Creating an emoji object that people will use to log their moods
     @PrimaryKey(autoGenerate = true)
     public int id;
 
